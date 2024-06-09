@@ -16,9 +16,21 @@ const initialElements = [
     position: { x: 100, y: 100 },
   },
   {
+    id: '3',
+    type: 'default', // default node
+    data: { label: 'Third Node' },
+    position: { x: 400, y: 200 },
+  },
+  {
     id: 'e1-2',
     source: '1',
     target: '2',
+    animated: true,
+  },
+  {
+    id: 'e2-3',
+    source: '2',
+    target: '3',
     animated: true,
   },
 ];
