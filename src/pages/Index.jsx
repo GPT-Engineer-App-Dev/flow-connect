@@ -9,6 +9,18 @@ const initialElements = [
     data: { label: 'Start Node' },
     position: { x: 250, y: 5 },
   },
+  {
+    id: '2',
+    type: 'default', // default node
+    data: { label: 'Second Node' },
+    position: { x: 100, y: 100 },
+  },
+  {
+    id: 'e1-2',
+    source: '1',
+    target: '2',
+    animated: true,
+  },
 ];
 
 const Index = () => {
@@ -19,13 +31,13 @@ const Index = () => {
   const onLoad = (rfi) => setReactFlowInstance(rfi);
 
   const addNode = () => {
-    const newNode = {
-      id: (elements.length + 1).toString(),
-      data: { label: `Node ${elements.length + 1}` },
-      position: { x: Math.random() * 250, y: Math.random() * 250 },
-    };
-    setElements((es) => [...es, newNode]);
+  const newNode = {
+    id: (elements.length + 1).toString(),
+    data: { label: `Node ${elements.length + 1}` },
+    position: { x: Math.random() * 250, y: Math.random() * 250 },
   };
+  setElements((es) => [...es, newNode]);
+};
 
   useEffect(() => {
     console.log(elements);
@@ -39,15 +51,15 @@ const Index = () => {
         </HStack>
         <Box w="100%" h="calc(100vh - 64px)">
           <ReactFlow
-            elements={elements}
-            onConnect={onConnect}
-            onLoad={onLoad}
-            style={{ width: '100%', height: '100%' }}
-          >
-            <MiniMap />
-            <Controls />
-            <Background />
-          </ReactFlow>
+  elements={elements}
+  onConnect={onConnect}
+  onLoad={onLoad}
+  style={{ width: '100%', height: '100%' }}
+>
+  <MiniMap />
+  <Controls />
+  <Background />
+</ReactFlow>
         </Box>
       </Box>
     </Container>
