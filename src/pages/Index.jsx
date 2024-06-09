@@ -1,18 +1,51 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
+import React, { useState } from 'react';
+import { Container, Box, Button, VStack, HStack } from "@chakra-ui/react";
+import ReactFlow, { addEdge, Background, Controls, MiniMap } from 'react-flow-renderer';
 
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+const initialElements = [
+  {
+    id: '1',
+    type: 'input', // input node
+    data: { label: 'Start Node' },
+    position: { x: 250, y: 5 },
+  },
+];
 
 const Index = () => {
+  const [elements, setElements] = useState(initialElements);
+  const [reactFlowInstance, setReactFlowInstance] = useState(null);
+
+  const onConnect = (params) => setElements((els) => addEdge(params, els));
+  const onLoad = (rfi) => setReactFlowInstance(rfi);
+
+  const addNode = () => {
+    const newNode = {
+      id: (elements.length + 1).toString(),
+      data: { label: `Node ${elements.length + 1}` },
+      position: { x: Math.random() * 250, y: Math.random() * 250 },
+    };
+    setElements((es) => es.concat(newNode));
+  };
+
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
-      </VStack>
+    <Container maxW="100vw" maxH="100vh" p={0} centerContent>
+      <Box w="100%" h="100vh">
+        <HStack spacing={4} p={4} bg="gray.100" justifyContent="center">
+          <Button onClick={addNode} colorScheme="teal">Add Node</Button>
+        </HStack>
+        <Box w="100%" h="calc(100vh - 64px)">
+          <ReactFlow
+            elements={elements}
+            onConnect={onConnect}
+            onLoad={onLoad}
+            style={{ width: '100%', height: '100%' }}
+          >
+            <MiniMap />
+            <Controls />
+            <Background />
+          </ReactFlow>
+        </Box>
+      </Box>
     </Container>
   );
 };
