@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Box, Button, VStack, HStack } from "@chakra-ui/react";
 import ReactFlow, { addEdge, Background, Controls, MiniMap } from 'react-flow-renderer';
 
@@ -26,6 +26,10 @@ const Index = () => {
     };
     setElements((es) => [...es, newNode]);
   };
+
+  useEffect(() => {
+    console.log(elements);
+  }, [elements]);
 
   return (
     <Container maxW="100vw" maxH="100vh" p={0} centerContent>
