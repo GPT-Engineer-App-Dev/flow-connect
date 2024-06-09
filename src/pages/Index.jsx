@@ -24,7 +24,7 @@ const Index = () => {
       data: { label: `Node ${elements.length + 1}` },
       position: { x: Math.random() * 250, y: Math.random() * 250 },
     };
-    setElements((es) => es.concat(newNode));
+    setElements((es) => [...es, newNode]);
   };
 
   return (
